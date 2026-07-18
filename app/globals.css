@@ -1,0 +1,198 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap");
+
+@theme {
+  --color-maroon-dark: #3D100C;
+  --color-maroon: #5A1813;
+  --color-maroon-light: #7E2B25;
+  --color-parchment: #FAF6F0;
+  --color-parchment-dark: #F2ECDF;
+  --color-parchment-deep: #EBE4D5;
+  --color-gold: #C5A059;
+  --color-gold-light: #E2CE9D;
+  --color-gold-dark: #A37E3E;
+  --color-almost-black: #1E1B18;
+  --color-thin-gold: #E3D5BA;
+
+  --font-cinzel: "Cinzel", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+:root {
+  --background: #FAF6F0;
+  --foreground: #1E1B18;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: radial-gradient(circle at 50% 50%, #FAF6F0 0%, #F2EADA 100%);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F2EADA;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5A1813;
+}
+
+/* Base typography styling */
+h1, h2, h3, .font-serif-heading {
+  font-family: var(--font-cinzel), serif;
+  letter-spacing: 0.06em;
+  text-shadow: 0.5px 0.5px 0px rgba(197, 160, 89, 0.2);
+}
+
+.font-subheading {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+}
+
+/* Text selections */
+::selection {
+  background-color: #5A1813;
+  color: #FAF6F0;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Luxury card container background */
+.card-parchment {
+  background: linear-gradient(135deg, #FAF6F0 0%, #F5EFEB 100%);
+  border: 1px solid #E3D5BA;
+  box-shadow: 0 4px 20px rgba(90, 24, 19, 0.03);
+}
+
+.card-parchment:hover {
+  border-color: #C5A059;
+  box-shadow: 0 8px 30px rgba(90, 24, 19, 0.07);
+}
+
+/* Gold foil text shine effect */
+.text-gold-foil {
+  background: linear-gradient(135deg, #C5A059 0%, #E2CE9D 50%, #A37E3E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom bounce loader styles */
+.loader {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  margin: 0 auto;
+}
+
+.loader:before {
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  left: 50px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: #5A1813; /* Maroon */
+  border: 2px solid #C5A059; /* Gold border */
+  box-shadow: 0 4px 10px rgba(90, 24, 19, 0.15);
+  animation: loading-bounce 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes loading-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-40px);
+  }
+}
+
+/* Stacked card hover effect matching website colour scheme */
+.stack {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.stack .card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #FAF6F0; /* Parchment */
+  border: 1px solid #E3D5BA; /* thin-gold */
+  padding: 8px;
+  box-shadow: 0 4px 15px rgba(90, 24, 19, 0.04);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10;
+}
+
+.stack .card::before,
+.stack .card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #FAF6F0; /* Parchment */
+  border: 1px solid #E3D5BA; /* thin-gold */
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, background-color 0.3s ease;
+  z-index: -1;
+}
+
+.stack .card::before {
+  transform: translateY(-2%) rotate(-3deg);
+}
+
+.stack .card::after {
+  transform: translateY(2%) rotate(3deg);
+}
+
+/* Hover States */
+.stack:hover {
+  transform: rotate(4deg);
+}
+
+.stack:hover .card {
+  border-color: #C5A059; /* Gold */
+  box-shadow: 0 10px 25px rgba(90, 24, 19, 0.08);
+}
+
+.stack:hover .card::before {
+  transform: translateY(-4%) rotate(-6deg);
+  border-color: #C5A059;
+  background: #FDFBF7;
+}
+
+.stack:hover .card::after {
+  transform: translateY(4%) rotate(6deg);
+  border-color: #C5A059;
+  background: #FDFBF7;
+}
+
+.stack .image {
+  width: 100%;
+  height: 100%;
+  background: #FAF6F0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
