@@ -11,21 +11,69 @@ export default function Contact() {
     email: "",
     type: "General Question",
     message: "",
+    website: "", // Honeypot field
   });
   const [submitted, setSubmitted] = useState(false);
   const [activeFormTab, setActiveFormTab] = useState("individual");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting General Inquiry:", formData);
+    
+    // Honeypot spam bot check
+    if (formData.website && formData.website.trim() !== "") {
+      console.warn("Honeypot filled by bot. Silently ignoring write.");
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: "",
+          email: "",
+          type: "General Question",
+          message: "",
+          website: "",
+        });
+      }, 4000);
+      return;
+    }
+
+    // Client-side validations matching database.rules.json
+    const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.length > 100) {
+      newErrors.name = "Name cannot exceed 100 characters";
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.length > 2000) {
+      newErrors.message = "Message cannot exceed 2000 characters";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+
     try {
       const contactsRef = ref(db, "contacts");
       const newContactRef = push(contactsRef);
       await set(newContactRef, {
-        name: formData.name,
-        email: formData.email,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
         type: formData.type,
-        message: formData.message,
+        message: formData.message.trim(),
         timestamp: Date.now()
       });
       setSubmitted(true);
@@ -36,6 +84,7 @@ export default function Contact() {
           email: "",
           type: "General Question",
           message: "",
+          website: "",
         });
       }, 4000);
     } catch (error) {
@@ -263,6 +312,20 @@ export default function Contact() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot field for bot spam prevention */}
+                <div className="absolute -left-[9999px] top-0 opacity-0 pointer-events-none" aria-hidden="true">
+                  <label htmlFor="website">Do not fill this website field if you are human</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    value={formData.website || ""}
+                    onChange={handleInputChange}
+                    tabIndex="-1"
+                    autoComplete="off"
+                  />
+                </div>
+
                 <div className="space-y-1">
                   <label htmlFor="name" className="text-[10px] uppercase tracking-wider text-gold font-semibold block">
                     Your Name
@@ -274,8 +337,13 @@ export default function Contact() {
                     required
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full bg-parchment border border-thin-gold focus:border-gold p-3 text-sm rounded-none focus:outline-none transition-colors"
+                    className={`w-full bg-parchment border ${errors.name ? 'border-maroon focus:border-maroon' : 'border-thin-gold focus:border-gold'} p-3 text-sm rounded-none focus:outline-none transition-colors`}
                   />
+                  {errors.name && (
+                    <span className="text-[10px] text-maroon font-semibold mt-0.5 block">
+                      {errors.name}
+                    </span>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -290,8 +358,13 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full bg-parchment border border-thin-gold focus:border-gold p-3 text-sm rounded-none focus:outline-none transition-colors"
+                      className={`w-full bg-parchment border ${errors.email ? 'border-maroon focus:border-maroon' : 'border-thin-gold focus:border-gold'} p-3 text-sm rounded-none focus:outline-none transition-colors`}
                     />
+                    {errors.email && (
+                      <span className="text-[10px] text-maroon font-semibold mt-0.5 block">
+                        {errors.email}
+                      </span>
+                    )}
                   </div>
 
                   <div className="space-y-1">
@@ -323,8 +396,13 @@ export default function Contact() {
                     required
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full bg-parchment border border-thin-gold focus:border-gold p-3 text-sm rounded-none focus:outline-none transition-colors resize-none"
+                    className={`w-full bg-parchment border ${errors.message ? 'border-maroon focus:border-maroon' : 'border-thin-gold focus:border-gold'} p-3 text-sm rounded-none focus:outline-none transition-colors resize-none`}
                   />
+                  {errors.message && (
+                    <span className="text-[10px] text-maroon font-semibold mt-0.5 block">
+                      {errors.message}
+                    </span>
+                  )}
                 </div>
 
                 <button

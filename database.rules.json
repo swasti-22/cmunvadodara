@@ -4,7 +4,25 @@
       ".read": false,
       "$contactId": {
         ".write": "!data.exists() && newData.exists()",
-        ".validate": "newData.hasChildren(['name', 'email', 'type', 'message', 'timestamp'])"
+        ".validate": "newData.hasChildren(['name', 'email', 'type', 'message', 'timestamp'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/)"
+        },
+        "type": {
+          ".validate": "newData.isString() && (newData.val() == 'General Question' || newData.val() == 'Press & Media Pass' || newData.val() == 'Special Assistance')"
+        },
+        "message": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 2000"
+        },
+        "timestamp": {
+          ".validate": "newData.isNumber() && newData.val() <= now"
+        },
+        "$other": {
+          ".validate": false
+        }
       }
     }
   }
