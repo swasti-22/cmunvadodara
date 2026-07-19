@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "contacts": {
+      ".read": false,
+      "$contactId": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['name', 'email', 'type', 'message', 'timestamp'])"
+      }
+    }
+  }
+}

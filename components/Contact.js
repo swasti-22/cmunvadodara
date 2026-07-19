@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { db } from "@/lib/firebase";
+import { ref, push, set } from "firebase/database";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,19 +15,33 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [activeFormTab, setActiveFormTab] = useState("individual");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting General Inquiry:", formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        type: "General Question",
-        message: "",
+    try {
+      const contactsRef = ref(db, "contacts");
+      const newContactRef = push(contactsRef);
+      await set(newContactRef, {
+        name: formData.name,
+        email: formData.email,
+        type: formData.type,
+        message: formData.message,
+        timestamp: Date.now()
       });
-    }, 4000);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: "",
+          email: "",
+          type: "General Question",
+          message: "",
+        });
+      }, 4000);
+    } catch (error) {
+      console.error("Error saving submission:", error);
+      alert("Submission error. Please verify your connection and try again.");
+    }
   };
 
   const handleInputChange = (e) => {
