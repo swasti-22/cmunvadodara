@@ -244,7 +244,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 border-t border-thin-gold/30 pt-16 mt-8">
           
           {/* FAQ Accordion Section */}
-          <div className="space-y-4">
+          <div id="faq" className="space-y-4 scroll-mt-24">
             <h3 className="text-xl text-maroon font-serif uppercase tracking-wider mb-6">
               Frequently Asked Questions
             </h3>
