@@ -10,6 +10,13 @@
       "**/node_modules/**"
     ],
     "cleanUrls": true,
-    "trailingSlash": false
+    "trailingSlash": false,
+    "redirects": [
+      {
+        "source": "**",
+        "destination": "https://cmunvadodara.vercel.app",
+        "type": 301
+      }
+    ]
   }
 }
