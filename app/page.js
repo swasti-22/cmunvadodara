@@ -18,10 +18,12 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ForParents from "@/components/ForParents";
 import SchoolPartnerships from "@/components/SchoolPartnerships";
+import FAQPanel from "@/components/FAQPanel";
 
 export default function Home() {
   const [parentsOpen, setParentsOpen] = useState(false);
   const [schoolsOpen, setSchoolsOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState(false);
 
   return (
     <>
@@ -29,6 +31,7 @@ export default function Home() {
       <Navbar 
         onOpenParents={() => setParentsOpen(true)} 
         onOpenSchools={() => setSchoolsOpen(true)} 
+        onOpenFAQ={() => setFaqOpen(true)}
       />
       <main className="flex-grow">
         <Hero />
@@ -46,6 +49,7 @@ export default function Home() {
       <Footer 
         onOpenParents={() => setParentsOpen(true)} 
         onOpenSchools={() => setSchoolsOpen(true)} 
+        onOpenFAQ={() => setFaqOpen(true)}
       />
       
       {/* Dynamic Slide-over panels */}
@@ -55,6 +59,9 @@ export default function Home() {
         )}
         {schoolsOpen && (
           <SchoolPartnerships isOpen={schoolsOpen} onClose={() => setSchoolsOpen(false)} />
+        )}
+        {faqOpen && (
+          <FAQPanel isOpen={faqOpen} onClose={() => setFaqOpen(false)} />
         )}
       </AnimatePresence>
     </>

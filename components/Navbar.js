@@ -13,7 +13,7 @@ const desktopLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Navbar({ onOpenParents, onOpenSchools }) {
+export default function Navbar({ onOpenParents, onOpenSchools, onOpenFAQ }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -69,17 +69,31 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
 
           {/* Desktop Nav Items */}
           <div className="hidden lg:flex items-center gap-7">
-            {desktopLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-almost-black/80 hover:text-maroon text-[11px] uppercase tracking-widest font-bold transition-colors duration-300 relative py-1 group"
-              >
-                {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
+            {desktopLinks.map((link) => {
+              if (link.name === "FAQ") {
+                return (
+                  <button
+                    key={link.name}
+                    onClick={onOpenFAQ}
+                    className="text-maroon hover:text-gold-dark text-[11px] uppercase tracking-widest font-bold transition-colors duration-300 relative py-1 group cursor-pointer border-none bg-transparent"
+                  >
+                    FAQ ✦
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
+                  </button>
+                );
+              }
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  className="text-almost-black/80 hover:text-maroon text-[11px] uppercase tracking-widest font-bold transition-colors duration-300 relative py-1 group"
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
+                </a>
+              );
+            })}
           </div>
 
             {/* Register Button CTA (Desktop) */}
@@ -177,7 +191,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                 { name: "For Parents ✦", action: onOpenParents, type: "drawer" },
                 { name: "School Partnerships ✦", action: onOpenSchools, type: "drawer" },
                 { name: "Gallery", href: "#gallery", type: "scroll" },
-                { name: "FAQ", href: "#faq", type: "scroll" },
+                { name: "FAQ ✦", action: onOpenFAQ, type: "drawer" },
                 { name: "Contact", href: "#contact", type: "scroll" },
               ].map((link, idx) => (
                 <motion.div
