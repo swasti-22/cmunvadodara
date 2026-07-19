@@ -14,7 +14,6 @@ import Leadership from "@/components/Leadership";
 
 
 import Gallery from "@/components/Gallery";
-import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ForParents from "@/components/ForParents";
@@ -42,7 +41,6 @@ export default function Home() {
 
 
         <Gallery />
-        <FAQ />
         <Contact />
       </main>
       <Footer 
