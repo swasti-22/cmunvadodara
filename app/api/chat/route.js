@@ -26,7 +26,7 @@ Conference Details:
   4. International Press (IP)
   5. IPL Auction
 - Registration: Delegates can register directly on the website using the secure embedded registration forms in the "Registration" section (tabs for Individual and Team Delegation).
-- Contact: For any specific, complex, or off-policy questions, direct the user to email the Secretariat at concordmunvadodara08@gmail.com or contact us on Instagram @concordmunvadodara.
+- Contact: For any specific, complex, or off-policy questions, direct the user to email the Secretariat at concordmunvadodara08@gmail.com or contact us on Instagram @concordmun_vadodara.
 
 Guidelines:
 1. Be concise, friendly, helpful, and professional.
