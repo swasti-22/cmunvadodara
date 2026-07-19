@@ -10,21 +10,16 @@ const timelineSteps = [
   },
   {
     step: "02",
-    title: "Receive Guides",
-    desc: "Get your committee background guides compiled by our executive board.",
-  },
-  {
-    step: "03",
     title: "Research & Draft",
     desc: "Understand your nation's policy, draft statements, and prepare arguments.",
   },
   {
-    step: "04",
+    step: "03",
     title: "Debate & Consensus",
     desc: "Engage in moderated discussions, lobby for consensus, and pass resolutions.",
   },
   {
-    step: "05",
+    step: "04",
     title: "Accredited Awards",
     desc: "Receive physical delegation certificates and compete for academic laurels.",
   },
