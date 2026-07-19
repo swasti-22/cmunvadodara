@@ -19,7 +19,6 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ForParents from "@/components/ForParents";
 import SchoolPartnerships from "@/components/SchoolPartnerships";
-import EmailButton from "@/components/EmailButton";
 
 export default function Home() {
   const [parentsOpen, setParentsOpen] = useState(false);
@@ -51,9 +50,6 @@ export default function Home() {
         onOpenSchools={() => setSchoolsOpen(true)} 
       />
       
-      {/* Sitewide floating helper */}
-      <EmailButton />
-
       {/* Dynamic Slide-over panels */}
       <AnimatePresence>
         {parentsOpen && (
