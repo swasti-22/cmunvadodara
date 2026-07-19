@@ -313,7 +313,7 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full text-center bg-maroon border border-maroon hover:border-gold hover:bg-maroon-dark text-parchment text-xs font-semibold uppercase tracking-widest py-3.5 transition-all duration-300 rounded-sm shadow-sm"
+                  className="btn-primary w-full py-3.5"
                 >
                   Send Message
                 </button>

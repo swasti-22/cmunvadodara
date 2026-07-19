@@ -180,13 +180,13 @@ export default function Committees() {
               <div className="flex items-center gap-4 mt-8 pt-4 border-t border-thin-gold/45">
                 <button
                   onClick={() => setSelectedCommittee(committee)}
-                  className="flex-1 text-center bg-transparent border border-gold hover:bg-gold/15 text-almost-black text-xs font-bold uppercase tracking-widest py-3 transition-colors duration-300 rounded-sm shadow-sm"
+                  className="btn-secondary flex-1 py-3 px-2 text-[10px] md:text-xs"
                 >
                   Learn More
                 </button>
                 <button
                   onClick={handleScrollToContact}
-                  className="flex-1 text-center bg-maroon text-parchment hover:bg-maroon-dark text-xs font-bold uppercase tracking-widest py-3 transition-colors duration-300 rounded-sm border-2 border-maroon hover:border-gold"
+                  className="btn-primary flex-1 py-3 px-2 text-[10px] md:text-xs"
                 >
                   Register
                 </button>
@@ -298,17 +298,16 @@ export default function Committees() {
                 </div>
               </div>
 
-              {/* Action Drawer Footer */}
               <div className="pt-8 border-t border-thin-gold/50 flex gap-4 mt-8">
                 <button
                   onClick={() => setSelectedCommittee(null)}
-                  className="flex-1 py-4 border border-gold/45 text-almost-black text-xs font-bold uppercase tracking-widest hover:bg-gold/10 transition-colors duration-300 rounded-sm"
+                  className="btn-secondary flex-1 py-4"
                 >
                   Close Panel
                 </button>
                 <button
                   onClick={handleScrollToContact}
-                  className="flex-1 py-4 bg-maroon border border-maroon hover:border-gold hover:bg-maroon-dark text-parchment text-xs font-bold uppercase tracking-widest transition-colors duration-300 rounded-sm"
+                  className="btn-primary flex-1 py-4"
                 >
                   Register For Allocation
                 </button>

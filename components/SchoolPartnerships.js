@@ -92,7 +92,7 @@ export default function SchoolPartnerships({ isOpen, onClose }) {
             onClick={() => {
               window.location.href = "mailto:institutions@concordmun.org?subject=School%20Partnership%20Proposal%20-%20Concord%20MUN%202026";
             }}
-            className="flex-1 py-4 bg-maroon border border-maroon hover:border-gold hover:bg-maroon-dark text-parchment text-xs font-bold uppercase tracking-widest transition-colors duration-300 rounded-sm text-center"
+            className="btn-primary flex-1 py-4 text-center"
           >
             Email Partnership Desk ✉
           </button>
@@ -100,7 +100,7 @@ export default function SchoolPartnerships({ isOpen, onClose }) {
             href="https://forms.gle/Mys3tWFEWRg6USqi7"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 py-4 text-center border border-gold/45 text-almost-black text-xs font-bold uppercase tracking-widest hover:bg-gold/15 transition-colors duration-300 rounded-sm"
+            className="btn-secondary flex-1 py-4 text-center"
           >
             Open Delegation Form ↗
           </a>

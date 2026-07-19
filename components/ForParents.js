@@ -121,13 +121,13 @@ export default function ForParents({ isOpen, onClose }) {
         <div className="pt-8 border-t border-thin-gold/50 flex gap-4 mt-8">
           <button
             onClick={handleDownload}
-            className="flex-1 py-4 border border-gold/45 text-almost-black text-xs font-bold uppercase tracking-widest hover:bg-gold/15 transition-colors duration-300 rounded-sm"
+            className="btn-secondary flex-1 py-4"
           >
             Download Parent PDF 📥
           </button>
           <a
             href="mailto:safety@concordmun.org?subject=Concord%20MUN%20Parent%20Inquiry"
-            className="flex-1 py-4 text-center bg-maroon border border-maroon hover:border-gold hover:bg-maroon-dark text-parchment text-xs font-bold uppercase tracking-widest transition-colors duration-300 rounded-sm"
+            className="btn-primary flex-1 py-4 text-center"
           >
             Email Safety Desk
           </a>

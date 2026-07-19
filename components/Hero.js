@@ -168,7 +168,7 @@ export default function Hero() {
           <a
             href="#contact"
             onClick={(e) => handleScrollTo(e, "#contact")}
-            className="w-full sm:w-auto bg-maroon text-parchment hover:bg-maroon-dark border-2 border-maroon hover:border-gold px-10 py-4 text-xs font-bold uppercase tracking-widest rounded-sm transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            className="btn-primary w-full sm:w-auto"
           >
             Register Now
           </a>

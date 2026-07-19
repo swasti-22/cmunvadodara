@@ -82,16 +82,16 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
             ))}
           </div>
 
-          {/* Register Button CTA (Desktop) */}
-          <div className="hidden lg:block">
-            <a
-              href="#contact"
-              onClick={(e) => handleLinkClick(e, "#contact")}
-              className="inline-block bg-maroon text-parchment hover:bg-maroon-dark border-2 border-maroon hover:border-gold px-6 py-2.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-            >
-              Register Now
-            </a>
-          </div>
+            {/* Register Button CTA (Desktop) */}
+            <div className="hidden lg:block">
+              <a
+                href="#contact"
+                onClick={(e) => handleLinkClick(e, "#contact")}
+                className="btn-primary py-2 px-6"
+              >
+                Register Now
+              </a>
+            </div>
 
           {/* Mobile Hamburger Button */}
           <button
@@ -217,7 +217,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                 <a
                   href="#contact"
                   onClick={(e) => handleLinkClick(e, "#contact")}
-                  className="w-full text-center block bg-maroon text-parchment border-2 border-maroon hover:bg-maroon-dark hover:border-gold py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-all duration-300 shadow-sm"
+                  className="btn-primary w-full block py-3.5"
                 >
                   Register Now
                 </a>
