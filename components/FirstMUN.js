@@ -6,7 +6,7 @@ const timelineSteps = [
   {
     step: "01",
     title: "Register",
-    desc: "Submit your basic preferences. Secure your seat and get assigned a country and committee.",
+    desc: "Submit your basic preferences. You get to choose your committee and portfolio.",
   },
   {
     step: "02",
@@ -15,21 +15,16 @@ const timelineSteps = [
   },
   {
     step: "03",
-    title: "Orientation Session",
-    desc: "Attend our special pre-conference training webinars covering rules of procedure.",
-  },
-  {
-    step: "04",
     title: "Research & Draft",
     desc: "Understand your nation's policy, draft statements, and prepare arguments.",
   },
   {
-    step: "05",
+    step: "04",
     title: "Debate & Consensus",
     desc: "Engage in moderated discussions, lobby for consensus, and pass resolutions.",
   },
   {
-    step: "06",
+    step: "05",
     title: "Accredited Awards",
     desc: "Receive physical delegation certificates and compete for academic laurels.",
   },
