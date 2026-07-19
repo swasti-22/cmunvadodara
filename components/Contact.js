@@ -1,9 +1,62 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const faqs = [
+  {
+    question: "Who can participate in Concord MUN Vadodara 2026?",
+    answer: "Concord MUN 2026 is open to students from Grade 8 to undergraduate/postgraduate university levels. Delegations can apply as part of school/college teams, or individuals can apply as independent delegates.",
+  },
+  {
+    question: "What are the registration fees and what do they include?",
+    answer: "The registration fee is INR 2,900 per delegate. This is inclusive of entry to all committee sessions, official delegate kits, 7 gourmet meals (breakfasts, lunches, high teas on both days, plus the social evening dinner), and certified credentials signed by the Secretariat.",
+  },
+  {
+    question: "Are country and committee allocations assigned on a first-come, first-served basis?",
+    answer: "Yes. Allocations are assigned strictly based on the applicant's experience, preference rank, and the order of complete payment registration. Early registration increases the likelihood of securing preferred portfolios. Lists will be officially released on 1st August 2026.",
+  },
+  {
+    question: "Is accommodation provided for outstation delegates?",
+    answer: "Accommodation is not included in the standard registration fee. However, we have partnered with our venue, The Fern Residency Vadodara, to offer exclusive discounted room rates for Concord delegates. Details can be requested during registration.",
+  },
+  {
+    question: "What is the official dress code for the conference?",
+    answer: "The dress code is strictly Western Formal Attire (suits, blazers, formal trousers, formal shirts, dresses) for Day 1 and traditional Indian Formal Attire (sherwanis, kurtas, sarees, salwars) for Day 2. Casual wear, sneakers, and t-shirts are prohibited.",
+  },
+  {
+    question: "How are meals arranged, and what dietary options are available?",
+    answer: "We provide 7 gourmet meals prepared by The Fern Residency's executive chefs. Spreads include morning breakfasts, high tea networks, and lunch buffets on both days, plus a formal social evening dinner. Clear vegetarian, vegan, and allergen-free items are labeled.",
+  },
+  {
+    question: "What is the cancellation and refund policy?",
+    answer: "Cancellations made before 25th July 2026 are eligible for a 50% refund. No refunds will be issued for cancellations requested after 25th July 2026, as resource provisioning and allocation slots will have been locked with the venue.",
+  },
+  {
+    question: "How does the blockchain certificate verification system work?",
+    answer: "Each certificate features an encrypted digital hash ID registered on a secure registry. After the event, universities, employers, and advisors can scan the QR code on the certificate or query the ID on our portal to verify the delegate's participation and honors instantly.",
+  },
+  {
+    question: "Can parents accompany delegates to the venue?",
+    answer: "Parents are welcome to visit the venue lobby and dining spaces. However, the committee chambers themselves are restricted strictly to registered delegates, advisors, and secretariat members to maintain parliamentary decorum. A dedicated Parent Lounge is available for waiting.",
+  },
+  {
+    question: "What benefits do you offer for school partnerships and bulk delegations?",
+    answer: "We offer dedicated benefits for institutional partners, including priority bulk allocation queues (for delegations of 10 to 50+ students), complimentary premium lounge access for teacher chaperones, eligibility for the prestigious 'Best Delegation Award', and highlights in our official media publications.",
+  },
+  {
+    question: "How does participating in Concord MUN benefit students academically and developmentally?",
+    answer: "Concord MUN provides high-value educational impact by building public speaking confidence, teaching critical research and analytical drafting skills, developing leadership and consensus building, and offering certified digital credentials that significantly boost college resumes.",
+  },
+];
 
 export default function Contact() {
   const [activeFormTab, setActiveFormTab] = useState("individual");
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
 
   return (
     <section id="contact" className="py-24 bg-parchment relative overflow-hidden px-6 md:px-12 border-t border-thin-gold/40">
@@ -187,32 +240,79 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Secondary Row: Venue & Location Details */}
-        <div className="border-t border-thin-gold/30 pt-16 mt-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Conference Venue */}
-            <div className="border border-thin-gold p-8 bg-parchment-dark/10 flex flex-col justify-between rounded-sm">
-              <div>
-                <h3 className="text-xl text-maroon font-serif uppercase tracking-wider mb-4">
-                  Conference Venue
-                </h3>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <span className="text-gold text-sm mt-0.5">✦</span>
-                    <div>
-                      <strong className="block text-xs uppercase tracking-wider font-semibold text-almost-black">The Fern Residency Vadodara</strong>
-                      <span className="text-sm font-light text-almost-black/85 leading-relaxed mt-1 block">
-                        Near Station, Alkapuri, Vadodara, Gujarat 390002. A premium business hotel located in the heart of Vadodara, featuring world-class conferencing amenities, luxury chambers, and executive dining.
+        {/* Secondary Row: FAQs & Venue Details */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 border-t border-thin-gold/30 pt-16 mt-8">
+          
+          {/* FAQ Accordion Section */}
+          <div id="faq" className="space-y-4 scroll-mt-24">
+            <h3 className="text-xl text-maroon font-serif uppercase tracking-wider mb-6">
+              Frequently Asked Questions
+            </h3>
+            <div className="space-y-3 max-h-[460px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gold/25 scrollbar-track-transparent">
+              {faqs.map((faq, index) => {
+                const isOpen = activeIndex === index;
+                return (
+                  <div
+                    key={index}
+                    className="border border-thin-gold bg-parchment-dark/15 rounded-sm transition-all duration-300 shadow-sm"
+                  >
+                    <button
+                      onClick={() => toggleAccordion(index)}
+                      className="w-full flex items-center justify-between p-4 text-left focus:outline-none"
+                      aria-expanded={isOpen}
+                    >
+                      <span className="text-xs font-serif uppercase tracking-wide text-maroon font-bold pr-4">
+                        {faq.question}
                       </span>
-                    </div>
+                      <span className="text-gold text-sm font-serif">
+                        {isOpen ? "−" : "+"}
+                      </span>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="p-4 pt-0 border-t border-thin-gold/20 text-xs font-light text-almost-black/85 leading-relaxed font-sans">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Venue & Location Coordinates */}
+          <div className="flex flex-col justify-between space-y-8">
+            {/* Conference Venue */}
+            <div className="border border-thin-gold p-8 bg-parchment-dark/10 space-y-6">
+              <h3 className="text-xl text-maroon font-serif uppercase tracking-wider">
+                Conference Venue
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <span className="text-gold text-sm mt-0.5">✦</span>
+                  <div>
+                    <strong className="block text-xs uppercase tracking-wider font-semibold text-almost-black">The Fern Residency Vadodara</strong>
+                    <span className="text-sm font-light text-almost-black/85 leading-relaxed">
+                      Near Station, Alkapuri, Vadodara, Gujarat 390002. A premium business hotel located in the heart of Vadodara, featuring world-class conferencing amenities, luxury chambers, and executive dining.
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Location & Map Coordinates */}
-            <div className="border border-thin-gold/85 p-3 bg-parchment-dark/30 flex flex-col min-h-[220px] rounded-sm">
+            {/* Coordinates & Google Map */}
+            <div className="border border-thin-gold/80 p-3 bg-parchment-dark/30 flex-1 flex flex-col justify-between min-h-[200px]">
               <div className="border border-dashed border-gold/40 flex-1 flex flex-col items-center justify-center text-center p-6 bg-parchment relative overflow-hidden">
                 <div className="absolute inset-0 z-0 flex items-center justify-center opacity-5 pointer-events-none select-none">
                   <svg className="w-full h-full text-gold" fill="none" stroke="currentColor" strokeWidth="0.5" viewBox="0 0 100 100">

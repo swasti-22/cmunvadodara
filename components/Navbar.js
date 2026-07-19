@@ -3,19 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const desktopLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Committees", href: "#committees" },
-  { name: "Leadership", href: "#leadership" },
-  { name: "Gallery", href: "#gallery" },
-  { name: "FAQ", href: "#faq" },
-  { name: "Contact", href: "#contact" },
-];
-
-export default function Navbar({ onOpenParents, onOpenSchools, onOpenFAQ }) {
+export default function Navbar({ onOpenParents, onOpenSchools }) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,19 +21,31 @@ export default function Navbar({ onOpenParents, onOpenSchools, onOpenFAQ }) {
 
   const handleLinkClick = (e, href) => {
     e.preventDefault();
-    setMobileMenuOpen(false);
+    setNavOpen(false);
     const targetElement = document.querySelector(href);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  const navLinks = [
+    { name: "Home", href: "#home", type: "scroll" },
+    { name: "About", href: "#about", type: "scroll" },
+    { name: "Committees", href: "#committees", type: "scroll" },
+    { name: "Leadership", href: "#leadership", type: "scroll" },
+    { name: "Gallery", href: "#gallery", type: "scroll" },
+    { name: "For Parents ✦", action: onOpenParents, type: "drawer" },
+    { name: "Partnerships ✦", action: onOpenSchools, type: "drawer" },
+    { name: "FAQ", href: "#faq", type: "scroll" },
+    { name: "Contact", href: "#contact", type: "scroll" },
+  ];
+
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled
-            ? "bg-parchment/95 backdrop-blur-md border-b border-thin-gold py-4 shadow-sm"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled || navOpen
+            ? "bg-[#161412]/95 backdrop-blur-md border-b border-thin-gold/40 py-4 shadow-lg"
             : "bg-transparent py-6"
         }`}
       >
@@ -58,195 +60,123 @@ export default function Navbar({ onOpenParents, onOpenSchools, onOpenFAQ }) {
               <span className="text-gold font-serif text-sm -rotate-45 font-semibold">C</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-maroon font-serif text-sm md:text-base font-bold tracking-[0.15em] uppercase">
+              <span className={`font-serif text-sm md:text-base font-bold tracking-[0.15em] uppercase transition-colors duration-300 ${scrolled || navOpen ? "text-parchment" : "text-maroon"}`}>
                 Concord MUN
               </span>
-              <span className="text-[10px] text-gold-dark tracking-widest uppercase font-semibold -mt-1">
+              <span className="text-[10px] text-gold tracking-widest uppercase font-semibold -mt-1">
                 Vadodara 2026
               </span>
             </div>
           </a>
 
-          {/* Desktop Nav Items */}
-          <div className="hidden lg:flex items-center gap-7">
-            {desktopLinks.map((link) => {
-              if (link.name === "FAQ") {
-                return (
-                  <button
-                    key={link.name}
-                    onClick={onOpenFAQ}
-                    className="text-maroon hover:text-gold-dark text-[11px] uppercase tracking-widest font-bold transition-colors duration-300 relative py-1 group cursor-pointer border-none bg-transparent"
-                  >
-                    FAQ ✦
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
-                  </button>
-                );
-              }
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  className="text-almost-black/80 hover:text-maroon text-[11px] uppercase tracking-widest font-bold transition-colors duration-300 relative py-1 group"
-                >
-                  {link.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
-                </a>
-              );
-            })}
-          </div>
-
-            {/* Register Button CTA (Desktop) */}
-            <div className="hidden lg:block">
-              <a
-                href="#contact"
-                onClick={(e) => handleLinkClick(e, "#contact")}
-                className="btn-primary py-2 px-6"
-              >
-                Register Now
-              </a>
-            </div>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 text-maroon hover:text-gold transition-colors duration-300 focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+          {/* Navigation Dropdown Trigger */}
+          <div className="relative">
+            <button
+              onClick={() => setNavOpen(!navOpen)}
+              className="text-gold hover:text-gold-light text-xs font-serif uppercase tracking-[0.2em] font-bold transition-all duration-300 flex items-center gap-1.5 focus:outline-none cursor-pointer px-4 py-2 border border-gold/40 rounded-sm bg-maroon/5 hover:bg-maroon/15"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
-          </button>
+              Navigation
+              <span className={`text-[9px] transition-transform duration-300 ${navOpen ? "rotate-180" : ""}`}>▼</span>
+            </button>
+
+            {/* Dropdown Menu (Desktop) */}
+            <AnimatePresence>
+              {navOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 15 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="absolute right-0 mt-4 z-50 bg-[#161412] border border-thin-gold p-6 md:p-8 w-[320px] md:w-[380px] rounded-sm shadow-2xl hidden lg:block"
+                >
+                  <div className="space-y-4">
+                    <h3 className="text-gold-dark font-serif text-xs font-semibold tracking-[0.25em] uppercase border-b border-thin-gold/30 pb-2">
+                      Navigation Menu
+                    </h3>
+                    <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
+                      {navLinks.map((link) => (
+                        <li key={link.name}>
+                          {link.type === "scroll" ? (
+                            <a
+                              href={link.href}
+                              onClick={(e) => handleLinkClick(e, link.href)}
+                              className="text-parchment/80 hover:text-gold text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 font-light"
+                            >
+                              {link.name}
+                            </a>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setNavOpen(false);
+                                link.action();
+                              }}
+                              className="text-gold font-bold hover:text-gold-light text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer"
+                            >
+                              {link.name}
+                            </button>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
+
+        {/* Dropdown Menu (Mobile Expand) */}
+        <AnimatePresence>
+          {navOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden w-full bg-[#161412] border-t border-thin-gold/30 overflow-hidden"
+            >
+              <div className="px-6 py-8 space-y-4">
+                <h3 className="text-gold-dark font-serif text-[10px] font-semibold tracking-widest uppercase border-b border-thin-gold/20 pb-2">
+                  Navigation Menu
+                </h3>
+                <ul className="grid grid-cols-2 gap-x-4 gap-y-4">
+                  {navLinks.map((link) => (
+                    <li key={link.name}>
+                      {link.type === "scroll" ? (
+                        <a
+                          href={link.href}
+                          onClick={(e) => handleLinkClick(e, link.href)}
+                          className="text-parchment/80 hover:text-gold text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 font-light"
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            setNavOpen(false);
+                            link.action();
+                          }}
+                          className="text-gold font-bold hover:text-gold-light text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer"
+                        >
+                          {link.name}
+                        </button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
-      {/* Fullscreen Mobile Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-parchment lg:hidden flex flex-col justify-between overflow-y-auto"
-          >
-            {/* Mobile Drawer Header */}
-            <div className="px-6 py-6 border-b border-thin-gold/60 flex items-center justify-between bg-parchment-dark/50">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 border border-gold flex items-center justify-center rounded-sm bg-maroon/5 rotate-45">
-                  <span className="text-gold font-serif text-sm -rotate-45 font-semibold">C</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-maroon font-serif text-sm font-bold tracking-[0.15em] uppercase">
-                    Concord MUN
-                  </span>
-                  <span className="text-[10px] text-gold tracking-widest uppercase font-medium -mt-1">
-                    Vadodara 2026
-                  </span>
-                </div>
-              </div>
-              
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-maroon hover:text-gold transition-colors duration-300 focus:outline-none"
-                aria-label="Close Menu"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            {/* Mobile Nav Links */}
-            <div className="flex-1 flex flex-col justify-center px-8 py-10 space-y-4">
-              {[
-                { name: "Home", href: "#home", type: "scroll" },
-                { name: "About", href: "#about", type: "scroll" },
-                { name: "Why Concord", href: "#why-choose", type: "scroll" },
-                { name: "First MUN?", href: "#first-mun", type: "scroll" },
-                { name: "Committees", href: "#committees", type: "scroll" },
-                { name: "Leadership", href: "#leadership", type: "scroll" },
-                { name: "For Parents ✦", action: onOpenParents, type: "drawer" },
-                { name: "School Partnerships ✦", action: onOpenSchools, type: "drawer" },
-                { name: "Gallery", href: "#gallery", type: "scroll" },
-                { name: "FAQ ✦", action: onOpenFAQ, type: "drawer" },
-                { name: "Contact", href: "#contact", type: "scroll" },
-              ].map((link, idx) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: idx * 0.04, duration: 0.35 }}
-                >
-                  {link.type === "scroll" ? (
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleLinkClick(e, link.href)}
-                      className="text-almost-black font-serif text-xl tracking-wider hover:text-maroon transition-colors duration-300 block py-0.5"
-                    >
-                      {link.name}
-                    </a>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        link.action();
-                      }}
-                      className="text-maroon font-serif text-xl tracking-wider hover:text-gold-dark transition-colors duration-300 text-left block py-0.5"
-                    >
-                      {link.name}
-                    </button>
-                  )}
-                </motion.div>
-              ))}
-
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.35 }}
-                className="pt-4"
-              >
-                <a
-                  href="#contact"
-                  onClick={(e) => handleLinkClick(e, "#contact")}
-                  className="btn-primary w-full block py-3.5"
-                >
-                  Register Now
-                </a>
-              </motion.div>
-            </div>
-
-            {/* Mobile Drawer Footer */}
-            <div className="p-8 border-t border-thin-gold/60 bg-parchment-dark/30 text-center">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-almost-black/50 font-semibold">
-                Where Ideas Converge. Change Begins.
-              </span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Invisible backdrop to capture outside clicks */}
+      {navOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-transparent"
+          onClick={() => setNavOpen(false)}
+        />
+      )}
     </>
   );
 }

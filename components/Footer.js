@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-export default function Footer({ onOpenParents, onOpenSchools, onOpenFAQ }) {
+export default function Footer({ onOpenParents, onOpenSchools }) {
   const handleLinkClick = (e, href) => {
     e.preventDefault();
     const targetElement = document.querySelector(href);
@@ -57,7 +57,7 @@ export default function Footer({ onOpenParents, onOpenSchools, onOpenFAQ }) {
               { name: "Gallery", href: "#gallery", type: "scroll" },
               { name: "For Parents ✦", action: onOpenParents, type: "drawer" },
               { name: "Partnerships ✦", action: onOpenSchools, type: "drawer" },
-              { name: "FAQ ✦", action: onOpenFAQ, type: "drawer" },
+              { name: "FAQ", href: "#faq", type: "scroll" },
               { name: "Contact", href: "#contact", type: "scroll" },
             ].map((link) => (
               <li key={link.name}>
