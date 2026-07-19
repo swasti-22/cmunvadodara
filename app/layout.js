@@ -1,4 +1,5 @@
 import "./globals.css";
+import ChatWidget from "@/components/ChatWidget";
 
 export const metadata = {
   title: "Concord Model United Nations Vadodara 2026",
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-parchment text-almost-black">
         {children}
+        <ChatWidget />
       </body>
     </html>
   );
