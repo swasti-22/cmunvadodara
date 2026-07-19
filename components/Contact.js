@@ -1,101 +1,98 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { db } from "@/lib/firebase";
 import { ref, push, set } from "firebase/database";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    type: "General Question",
-    message: "",
-    website: "", // Honeypot field
-  });
-  const [submitted, setSubmitted] = useState(false);
   const [activeFormTab, setActiveFormTab] = useState("individual");
-  const [errors, setErrors] = useState({});
+  const [chatMessages, setChatMessages] = useState([
+    {
+      sender: "bot",
+      text: "Greetings, Delegate! I am the Concord Secretariat Assistant. Ask me anything about Concord MUN Vadodara 2026, or use the quick replies below."
+    }
+  ]);
+  const [chatInput, setChatInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Submitting General Inquiry:", formData);
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatMessages, isTyping]);
+
+  const getBotResponse = (query) => {
+    const q = query.toLowerCase();
     
-    // Honeypot spam bot check
-    if (formData.website && formData.website.trim() !== "") {
-      console.warn("Honeypot filled by bot. Silently ignoring write.");
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({
-          name: "",
-          email: "",
-          type: "General Question",
-          message: "",
-          website: "",
-        });
-      }, 4000);
-      return;
+    if (q.includes("date") || q.includes("when") || q.includes("schedule") || q.includes("calendar")) {
+      return "Concord MUN Vadodara 2026 will take place on **22nd & 23rd August 2026**.";
     }
-
-    // Client-side validations matching database.rules.json
-    const newErrors = {};
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    } else if (formData.name.length > 100) {
-      newErrors.name = "Name cannot exceed 100 characters";
+    if (q.includes("venue") || q.includes("where") || q.includes("hotel") || q.includes("location") || q.includes("place")) {
+      return "The conference is hosted at **The Fern Residency, Vadodara** (Near Station, Alkapuri, Vadodara, Gujarat 390002). It is a premium business hotel offering world-class conferencing amenities, luxury chambers, and executive dining.";
     }
-
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!emailRegex.test(formData.email.trim())) {
-      newErrors.email = "Please enter a valid email address";
+    if (q.includes("fee") || q.includes("price") || q.includes("cost") || q.includes("inclusions") || q.includes("meal") || q.includes("pay") || q.includes("money") || q.includes("amount")) {
+      return "The registration fee is **INR 2,900 per delegate**. This covers entry to all committee sessions, official delegate kits, certified blockchain credentials, and 7 gourmet meals (buffet breakfasts, lunches, high teas on both days, plus a social evening dinner) prepared by The Fern Residency's executive chefs.";
     }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    } else if (formData.message.length > 2000) {
-      newErrors.message = "Message cannot exceed 2000 characters";
+    if (q.includes("committee") || q.includes("agenda") || q.includes("unga") || q.includes("disec") || q.includes("aippm") || q.includes("unhrc") || q.includes("unsc")) {
+      return "We feature 4 committees at Concord MUN 2026:\n\n1. **AIPPM**: Reviewing the status of internal security in India.\n2. **UNGA (DISEC)**: Exploring security parameters of Outer Space activities.\n3. **UNHRC**: Protecting human rights in conflict zones.\n4. **UNSC**: Addressing geopolitical security crises.";
     }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
+    if (q.includes("register") || q.includes("apply") || q.includes("join") || q.includes("form") || q.includes("link")) {
+      return "To register, use the **Individual Registration** or **Team Delegation** tabs located right above this chatbot panel on our site to access the secure forms.";
     }
-
-    setErrors({});
-
-    try {
-      const contactsRef = ref(db, "contacts");
-      const newContactRef = push(contactsRef);
-      await set(newContactRef, {
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        type: formData.type,
-        message: formData.message.trim(),
-        timestamp: Date.now()
-      });
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({
-          name: "",
-          email: "",
-          type: "General Question",
-          message: "",
-          website: "",
-        });
-      }, 4000);
-    } catch (error) {
-      console.error("Error saving submission:", error);
-      alert("Submission error. Please verify your connection and try again.");
+    if (q.includes("contact") || q.includes("phone") || q.includes("email") || q.includes("instagram") || q.includes("reach") || q.includes("support")) {
+      return "You can reach the Secretariat at **concordmunvadodara08@gmail.com** or send a DM to our official Instagram page **@concordmunvadodara**.";
     }
+    if (q.includes("hotel") || q.includes("stay") || q.includes("accommodation")) {
+      return "Accommodation is not included in the standard fee, but outstation delegates can request discounted delegate rooms at **The Fern Residency Vadodara** during registration.";
+    }
+    if (q.includes("dress") || q.includes("suit") || q.includes("clothes") || q.includes("attire")) {
+      return "The dress code is strictly Western Formal Attire (suits, blazers, formal trousers) on Day 1, and traditional Indian Formal Attire on Day 2.";
+    }
+    if (q.includes("hello") || q.includes("hi") || q.includes("hey") || q.includes("greetings")) {
+      return "Hello! How can I assist you with Concord MUN Vadodara 2026 today?";
+    }
+    
+    return "I can help you with details about dates, venue, registration fees, committees, and contact information. For custom inquiries, please email the Secretariat at **concordmunvadodara08@gmail.com**.";
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleSendMessage = async (text) => {
+    if (!text.trim()) return;
+    
+    const userMsg = { sender: "user", text };
+    setChatMessages((prev) => [...prev, userMsg]);
+    setIsTyping(true);
+
+    // Save user query to Firebase for logs (spam-protected, max 200 chars)
+    if (text.length <= 200) {
+      try {
+        const queryRef = ref(db, "chatbot_queries");
+        const newQueryRef = push(queryRef);
+        await set(newQueryRef, {
+          query: text.trim(),
+          timestamp: Date.now()
+        });
+      } catch (err) {
+        console.error("Firebase log error:", err);
+      }
+    }
+
+    setTimeout(() => {
+      const responseText = getBotResponse(text);
+      setChatMessages((prev) => [...prev, { sender: "bot", text: responseText }]);
+      setIsTyping(false);
+    }, 850);
+  };
+
+  const handleQuickReply = (pillText) => {
+    let cleanText = pillText;
+    if (pillText.includes("Dates")) cleanText = "What are the dates and venue?";
+    else if (pillText.includes("Fees")) cleanText = "What are the registration fees and inclusions?";
+    else if (pillText.includes("Committees")) cleanText = "Tell me about the committees and agendas.";
+    else if (pillText.includes("Register")) cleanText = "How do I register?";
+
+    handleSendMessage(cleanText);
   };
 
   return (
@@ -283,136 +280,98 @@ export default function Contact() {
         {/* Secondary Row: General Inquiries Form & Venue Details */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 border-t border-thin-gold/30 pt-16">
           
-          {/* General Inquiry Form */}
-          <div className="border border-thin-gold p-8 md:p-12 bg-parchment-dark/15 relative">
+          {/* Secretariat AI Assistant Chatbot */}
+          <div className="border border-thin-gold p-6 md:p-8 bg-[#161412] relative flex flex-col justify-between h-[520px] rounded-sm shadow-xl">
+            {/* Elegant Header Decors */}
             <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-gold/45" />
             <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-gold/45" />
             <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-gold/45" />
             <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-gold/45" />
 
-            <div className="space-y-3 mb-6">
-              <h3 className="text-lg text-maroon font-serif uppercase tracking-wider">
-                General Correspondence
-              </h3>
-              <p className="text-xs text-almost-black/75 font-light leading-relaxed">
-                Have questions regarding registrations, press passes, or procedural details? Drop us a message.
-              </p>
+            <div className="border-b border-thin-gold/30 pb-4 mb-4 flex justify-between items-center">
+              <div>
+                <h3 className="text-sm font-serif uppercase tracking-wider text-gold font-bold">
+                  Secretariat AI Assistant
+                </h3>
+                <p className="text-[10px] text-parchment/60 font-light">
+                  Ask about dates, fees, venue, or committees
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-wider text-[#2a9d8f] font-bold">
+                <span className="w-1.5 h-1.5 bg-[#2a9d8f] rounded-full animate-pulse" />
+                Online
+              </div>
             </div>
 
-            {submitted ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="bg-maroon/5 border border-gold p-6 text-center space-y-3"
-              >
-                <span className="text-gold text-sm block font-serif">✦ Message Dispatched</span>
-                <p className="text-xs text-almost-black/85 font-light">
-                  Thank you. Your message has been received by our communications desk. We will respond shortly.
-                </p>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Honeypot field for bot spam prevention */}
-                <div className="absolute -left-[9999px] top-0 opacity-0 pointer-events-none" aria-hidden="true">
-                  <label htmlFor="website">Do not fill this website field if you are human</label>
-                  <input
-                    type="text"
-                    id="website"
-                    name="website"
-                    value={formData.website || ""}
-                    onChange={handleInputChange}
-                    tabIndex="-1"
-                    autoComplete="off"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label htmlFor="name" className="text-[10px] uppercase tracking-wider text-gold font-semibold block">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className={`w-full bg-parchment border ${errors.name ? 'border-maroon focus:border-maroon' : 'border-thin-gold focus:border-gold'} p-3 text-sm rounded-none focus:outline-none transition-colors`}
-                  />
-                  {errors.name && (
-                    <span className="text-[10px] text-maroon font-semibold mt-0.5 block">
-                      {errors.name}
-                    </span>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label htmlFor="email" className="text-[10px] uppercase tracking-wider text-gold font-semibold block">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className={`w-full bg-parchment border ${errors.email ? 'border-maroon focus:border-maroon' : 'border-thin-gold focus:border-gold'} p-3 text-sm rounded-none focus:outline-none transition-colors`}
-                    />
-                    {errors.email && (
-                      <span className="text-[10px] text-maroon font-semibold mt-0.5 block">
-                        {errors.email}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="space-y-1">
-                    <label htmlFor="type" className="text-[10px] uppercase tracking-wider text-gold font-semibold block">
-                      Inquiry Category
-                    </label>
-                    <select
-                      id="type"
-                      name="type"
-                      value={formData.type}
-                      onChange={handleInputChange}
-                      className="w-full bg-parchment border border-thin-gold focus:border-gold p-3 text-sm rounded-none focus:outline-none transition-colors appearance-none"
-                    >
-                      <option>General Question</option>
-                      <option>Press & Media Pass</option>
-                      <option>Special Assistance</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <label htmlFor="message" className="text-[10px] uppercase tracking-wider text-gold font-semibold block">
-                    Message Content
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="3"
-                    required
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className={`w-full bg-parchment border ${errors.message ? 'border-maroon focus:border-maroon' : 'border-thin-gold focus:border-gold'} p-3 text-sm rounded-none focus:outline-none transition-colors resize-none`}
-                  />
-                  {errors.message && (
-                    <span className="text-[10px] text-maroon font-semibold mt-0.5 block">
-                      {errors.message}
-                    </span>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn-primary w-full py-3.5"
+            {/* Chat Messages Log */}
+            <div className="flex-1 overflow-y-auto pr-1 space-y-4 mb-4 scrollbar-thin scrollbar-thumb-gold/20 scrollbar-track-transparent">
+              {chatMessages.map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  Send Message
+                  <div
+                    className={`max-w-[85%] rounded-md p-3 text-xs leading-relaxed font-sans ${
+                      msg.sender === "user"
+                        ? "bg-maroon text-parchment border border-thin-gold/45 rounded-tr-none"
+                        : "bg-[#25221f] text-parchment/90 border border-thin-gold/20 rounded-tl-none"
+                    }`}
+                    style={{ whiteSpace: "pre-line" }}
+                  >
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-[#25221f] border border-thin-gold/20 rounded-md rounded-tl-none p-3 max-w-[85%] flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-1.5 h-1.5 bg-gold rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Quick Replies Grid */}
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {["📅 Dates", "💰 Fees", "🏛️ Committees", "✍️ How to Register?"].map((pill) => (
+                <button
+                  key={pill}
+                  onClick={() => handleQuickReply(pill)}
+                  className="text-[9px] uppercase tracking-wider bg-parchment-dark/10 border border-thin-gold/40 text-gold font-bold px-2 py-1 hover:bg-gold/10 hover:border-gold transition-all duration-300 rounded-sm cursor-pointer"
+                >
+                  {pill}
                 </button>
-              </form>
-            )}
+              ))}
+            </div>
+
+            {/* Input Form */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage(chatInput);
+                setChatInput("");
+              }}
+              className="flex gap-2 border-t border-thin-gold/20 pt-3"
+            >
+              <input
+                type="text"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="Type your question here..."
+                maxLength={200}
+                className="flex-1 bg-[#1e1b18] border border-thin-gold/45 focus:border-gold p-2.5 text-xs text-parchment rounded-none focus:outline-none transition-colors"
+              />
+              <button
+                type="submit"
+                className="btn-primary py-2 px-4 text-[10px] font-bold uppercase tracking-widest border border-gold"
+              >
+                Send
+              </button>
+            </form>
           </div>
 
           {/* Venue & Location Coordinates */}
