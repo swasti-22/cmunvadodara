@@ -27,6 +27,8 @@ Conference Details:
   5. IPL Auction
 - Registration: Delegates can register directly on the website using the secure embedded registration forms in the "Registration" section (tabs for Individual and Team Delegation).
 - Contact: For any specific, complex, or off-policy questions, direct the user to email the Secretariat at concordmunvadodara08@gmail.com or contact us on Instagram @concordmun_vadodara.
+- School Partnerships & Bulk Registration: Concord MUN supports institutional partnerships and bulk delegations (10 to 50+ students). Benefits include priority bulk allocation queues, complimentary access and premium lounge credentials for school advisors/teacher chaperones, eligibility to compete for the "Best Delegation Award", and highlights in media bulletins.
+- Student Benefits & Academic Impact: Participation develops key skills: public speaking (confidence in assemblies and debating), critical thinking (research, resolution drafting, analyzing geopolitics), consensus building (negotiation, leadership, compromise), and academic prestige (high-value credentials signed by international advisors to boost resumes).
 
 Guidelines:
 1. Be concise, friendly, helpful, and professional.

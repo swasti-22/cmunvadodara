@@ -40,6 +40,14 @@ const faqs = [
     question: "Can parents accompany delegates to the venue?",
     answer: "Parents are welcome to visit the venue lobby and dining spaces. However, the committee chambers themselves are restricted strictly to registered delegates, advisors, and secretariat members to maintain parliamentary decorum. A dedicated Parent Lounge is available for waiting.",
   },
+  {
+    question: "What benefits do you offer for school partnerships and bulk delegations?",
+    answer: "We offer dedicated benefits for institutional partners, including priority bulk allocation queues (for delegations of 10 to 50+ students), complimentary premium lounge access for teacher chaperones, eligibility for the prestigious 'Best Delegation Award', and highlights in our official media publications.",
+  },
+  {
+    question: "How does participating in Concord MUN benefit students academically and developmentally?",
+    answer: "Concord MUN provides high-value educational impact by building public speaking confidence, teaching critical research and analytical drafting skills, developing leadership and consensus building, and offering certified digital credentials that significantly boost college resumes.",
+  },
 ];
 
 export default function Contact() {
