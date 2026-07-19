@@ -63,7 +63,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled || navOpen
-          ? "bg-[#161412]/95 backdrop-blur-md border-b border-thin-gold/40 py-4 shadow-lg"
+          ? "bg-parchment/95 backdrop-blur-md border-b border-thin-gold py-4 shadow-sm"
           : "bg-transparent py-6"
       }`}
     >
@@ -78,10 +78,10 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
             <span className="text-gold font-serif text-sm -rotate-45 font-semibold">C</span>
           </div>
           <div className="flex flex-col">
-            <span className={`font-serif text-sm md:text-base font-bold tracking-[0.15em] uppercase transition-colors duration-300 ${scrolled || navOpen ? "text-parchment" : "text-maroon"}`}>
+            <span className="font-serif text-sm md:text-base font-bold tracking-[0.15em] uppercase text-maroon">
               Concord MUN
             </span>
-            <span className="text-[10px] text-gold tracking-widest uppercase font-semibold -mt-1">
+            <span className="text-[10px] text-gold-dark tracking-widest uppercase font-semibold -mt-1">
               Vadodara 2026
             </span>
           </div>
@@ -91,7 +91,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
         <div className="relative">
           <button
             onClick={() => setNavOpen(!navOpen)}
-            className="text-gold hover:text-gold-light text-xs font-serif uppercase tracking-[0.2em] font-bold transition-all duration-300 flex items-center gap-1.5 focus:outline-none cursor-pointer px-4 py-2 border border-gold/40 rounded-sm bg-maroon/5 hover:bg-maroon/15"
+            className="text-maroon hover:text-gold-dark text-xs font-serif uppercase tracking-[0.2em] font-bold transition-all duration-300 flex items-center gap-1.5 focus:outline-none cursor-pointer px-4 py-2 border border-thin-gold rounded-sm bg-parchment-dark/40 hover:bg-parchment-deep/60"
           >
             Navigation
             <span className={`text-[9px] transition-transform duration-300 ${navOpen ? "rotate-180" : ""}`}>▼</span>
@@ -105,10 +105,10 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 15 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="absolute right-0 mt-4 z-50 bg-[#161412] border border-thin-gold p-6 md:p-8 w-[320px] md:w-[380px] rounded-sm shadow-2xl hidden lg:block"
+                className="absolute right-0 mt-4 z-50 bg-parchment border border-thin-gold p-6 md:p-8 w-[320px] md:w-[380px] rounded-sm shadow-xl hidden lg:block"
               >
                 <div className="space-y-4">
-                  <h3 className="text-gold-dark font-serif text-xs font-semibold tracking-[0.25em] uppercase border-b border-thin-gold/30 pb-2">
+                  <h3 className="text-gold-dark font-serif text-xs font-semibold tracking-[0.25em] uppercase border-b border-thin-gold/40 pb-2">
                     Navigation Menu
                   </h3>
                   <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
@@ -118,7 +118,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                           <a
                             href={link.href}
                             onClick={(e) => handleLinkClick(e, link.href)}
-                            className="text-parchment/80 hover:text-gold text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 font-light cursor-pointer"
+                            className="text-almost-black/80 hover:text-maroon text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 font-medium cursor-pointer"
                           >
                             {link.name}
                           </a>
@@ -130,7 +130,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                                 setNavOpen(false);
                               }, 100);
                             }}
-                            className="text-gold font-bold hover:text-gold-light text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer"
+                            className="text-maroon hover:text-gold-dark text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer font-bold"
                           >
                             {link.name}
                           </button>
@@ -153,10 +153,10 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden w-full bg-[#161412] border-t border-thin-gold/30 overflow-hidden"
+            className="lg:hidden w-full bg-parchment-dark border-t border-thin-gold/45 overflow-hidden"
           >
             <div className="px-6 py-8 space-y-4">
-              <h3 className="text-gold-dark font-serif text-[10px] font-semibold tracking-widest uppercase border-b border-thin-gold/20 pb-2">
+              <h3 className="text-gold-dark font-serif text-[10px] font-semibold tracking-widest uppercase border-b border-thin-gold/25 pb-2">
                 Navigation Menu
               </h3>
               <ul className="grid grid-cols-2 gap-x-4 gap-y-4">
@@ -166,7 +166,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                       <a
                         href={link.href}
                         onClick={(e) => handleLinkClick(e, link.href)}
-                        className="text-parchment/80 hover:text-gold text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 font-light cursor-pointer"
+                        className="text-almost-black/80 hover:text-maroon text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 font-medium cursor-pointer"
                       >
                         {link.name}
                       </a>
@@ -178,7 +178,7 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                             setNavOpen(false);
                           }, 100);
                         }}
-                        className="text-gold font-bold hover:text-gold-light text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer"
+                        className="text-maroon hover:text-gold-dark text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer font-bold"
                       >
                         {link.name}
                       </button>
