@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar({ onOpenParents, onOpenSchools }) {
   const [scrolled, setScrolled] = useState(false);
@@ -34,18 +33,6 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [navOpen]);
 
-  const handleLinkClick = (e, href) => {
-    e.preventDefault();
-    const targetElement = document.querySelector(href);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth" });
-    }
-    // Defer closing the menu slightly so the browser cleanly processes the scroll event
-    setTimeout(() => {
-      setNavOpen(false);
-    }, 100);
-  };
-
   const navLinks = [
     { name: "Home", href: "#home", type: "scroll" },
     { name: "About", href: "#about", type: "scroll" },
@@ -71,7 +58,6 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
         {/* Logo Brand Title */}
         <a
           href="#home"
-          onClick={(e) => handleLinkClick(e, "#home")}
           className="flex items-center gap-3 group"
         >
           <div className="w-8 h-8 border border-gold flex items-center justify-center rounded-sm bg-maroon/5 rotate-45 transition-colors duration-300 group-hover:bg-maroon/10">
@@ -98,87 +84,35 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
           </button>
 
           {/* Dropdown Menu (Desktop) */}
-          <AnimatePresence>
-            {navOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 15 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="absolute right-0 mt-4 z-50 bg-parchment border border-thin-gold p-6 md:p-8 w-[320px] md:w-[380px] rounded-sm shadow-xl hidden lg:block"
-              >
-                <div className="space-y-4">
-                  <h3 className="text-gold-dark font-serif text-xs font-semibold tracking-[0.25em] uppercase border-b border-thin-gold/40 pb-2">
-                    Navigation Menu
-                  </h3>
-                  <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
-                    {navLinks.map((link) => (
-                      <li key={link.name}>
-                        {link.type === "scroll" ? (
-                          <a
-                            href={link.href}
-                            onClick={(e) => handleLinkClick(e, link.href)}
-                            className="text-almost-black/80 hover:text-maroon text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 font-medium cursor-pointer"
-                          >
-                            {link.name}
-                          </a>
-                        ) : (
-                          <button
-                            onClick={() => {
-                              link.action();
-                              setTimeout(() => {
-                                setNavOpen(false);
-                              }, 100);
-                            }}
-                            className="text-maroon hover:text-gold-dark text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer font-bold"
-                          >
-                            {link.name}
-                          </button>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {/* Dropdown Menu (Mobile Expand) */}
-      <AnimatePresence>
-        {navOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden w-full bg-parchment-dark border-t border-thin-gold/45 overflow-hidden"
+          <div
+            className={`absolute right-0 mt-4 z-50 bg-parchment border border-thin-gold p-6 md:p-8 w-[320px] md:w-[380px] rounded-sm shadow-xl hidden lg:block transition-all duration-550 ease-out ${
+              navOpen
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 translate-y-2 pointer-events-none"
+            }`}
           >
-            <div className="px-6 py-8 space-y-4">
-              <h3 className="text-gold-dark font-serif text-[10px] font-semibold tracking-widest uppercase border-b border-thin-gold/25 pb-2">
+            <div className="space-y-4">
+              <h3 className="text-gold-dark font-serif text-xs font-semibold tracking-[0.25em] uppercase border-b border-thin-gold/40 pb-2">
                 Navigation Menu
               </h3>
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-4">
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
                 {navLinks.map((link) => (
                   <li key={link.name}>
                     {link.type === "scroll" ? (
                       <a
                         href={link.href}
-                        onClick={(e) => handleLinkClick(e, link.href)}
-                        className="text-almost-black/80 hover:text-maroon text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 font-medium cursor-pointer"
+                        onClick={() => setNavOpen(false)}
+                        className="text-almost-black/80 hover:text-maroon text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 font-medium cursor-pointer"
                       >
                         {link.name}
                       </a>
                     ) : (
                       <button
                         onClick={() => {
+                          setNavOpen(false);
                           link.action();
-                          setTimeout(() => {
-                            setNavOpen(false);
-                          }, 100);
                         }}
-                        className="text-maroon hover:text-gold-dark text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer font-bold"
+                        className="text-maroon hover:text-gold-dark text-[11px] uppercase tracking-widest font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer font-bold w-full"
                       >
                         {link.name}
                       </button>
@@ -187,9 +121,49 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
                 ))}
               </ul>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </div>
+
+      {/* Dropdown Menu (Mobile Expand) */}
+      <div
+        className={`lg:hidden w-full bg-parchment-dark border-t border-thin-gold/45 overflow-hidden transition-all duration-300 ease-in-out ${
+          navOpen
+            ? "max-h-[500px] opacity-100 pointer-events-auto"
+            : "max-h-0 opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="px-6 py-8 space-y-4">
+          <h3 className="text-gold-dark font-serif text-[10px] font-semibold tracking-widest uppercase border-b border-thin-gold/25 pb-2">
+            Navigation Menu
+          </h3>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-4">
+            {navLinks.map((link) => (
+              <li key={link.name}>
+                {link.type === "scroll" ? (
+                  <a
+                    href={link.href}
+                    onClick={() => setNavOpen(false)}
+                    className="text-almost-black/80 hover:text-maroon text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 font-medium cursor-pointer"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setNavOpen(false);
+                      link.action();
+                    }}
+                    className="text-maroon hover:text-gold-dark text-xs uppercase tracking-wider font-serif transition-colors duration-300 block py-1 text-left border-none bg-transparent cursor-pointer font-bold w-full"
+                  >
+                    {link.name}
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 }
