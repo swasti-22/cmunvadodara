@@ -17,6 +17,13 @@ const leaders = [
     image: "/vice-president.jpg",
     fallbackInitial: "SC",
     description: "Operations Director & Editorial Lead (Vadodara Edition)",
+  },
+  {
+    role: "Vice President (Vadodara)",
+    name: "Jainam Joshi",
+    image: "/vp-vadodara.png",
+    fallbackInitial: "JJ",
+    description: "Operations & Editorial Coordinator (Vadodara Edition)",
   }
 ];
 
@@ -49,7 +56,7 @@ export default function Leadership() {
         </div>
 
         {/* Leaders Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           {leaders.map((leader, index) => (
             <motion.div
               key={index}
@@ -68,7 +75,7 @@ export default function Leadership() {
               {/* Portrait Frame Container with stacked card hover effect */}
               <div 
                 onClick={() => setActivePhoto(leader)}
-                className="stack w-48 h-60 md:w-52 md:h-64 cursor-zoom-in"
+                className="stack w-44 h-56 md:w-48 md:h-60 cursor-zoom-in"
                 title="Click to view full photo"
               >
                 <div className="card">
