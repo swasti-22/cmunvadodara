@@ -97,22 +97,10 @@ export default function ForParents({ isOpen, onClose }) {
             <h4 className="text-xs uppercase tracking-widest text-gold font-bold">
               Organizing Team Contacts
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
-              <div className="border border-dashed border-gold/45 p-4 text-center space-y-1">
-                <span className="block text-[10px] text-gold-dark font-bold uppercase">Registry Desk</span>
-                <span className="block font-semibold text-almost-black">Registry Lead</span>
-                <span className="block text-[10px] text-almost-black/60 font-light font-mono">+91 98765 43211</span>
-              </div>
-              <div className="border border-dashed border-gold/45 p-4 text-center space-y-1">
-                <span className="block text-[10px] text-gold-dark font-bold uppercase">Secretariat General</span>
-                <span className="block font-semibold text-almost-black">Kabir Malhotra</span>
-                <span className="block text-[10px] text-almost-black/60 font-light font-mono">+91 98765 43212</span>
-              </div>
-              <div className="border border-dashed border-gold/45 p-4 text-center space-y-1">
-                <span className="block text-[10px] text-gold-dark font-bold uppercase">Safety Officer</span>
-                <span className="block font-semibold text-almost-black">Security Desk</span>
-                <span className="block text-[10px] text-almost-black/60 font-light font-mono">+91 98765 43213</span>
-              </div>
+            <div className="border border-dashed border-gold/45 p-6 text-center bg-parchment-dark/15 rounded-sm">
+              <span className="text-xs font-light text-almost-black/75 font-sans block">
+                Will be shared with you before the event.
+              </span>
             </div>
           </div>
         </div>
