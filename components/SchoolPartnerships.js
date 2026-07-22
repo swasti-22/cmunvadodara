@@ -88,21 +88,20 @@ export default function SchoolPartnerships({ isOpen, onClose }) {
 
         {/* Footer Actions */}
         <div className="pt-8 border-t border-thin-gold/50 flex gap-4 mt-8">
-          <button
-            onClick={() => {
-              window.location.href = "mailto:institutions@concordmun.org?subject=School%20Partnership%20Proposal%20-%20Concord%20MUN%202026";
-            }}
-            className="btn-primary flex-1 py-4 text-center"
-          >
-            Email Partnership Desk ✉
-          </button>
           <a
-            href="https://forms.gle/Mys3tWFEWRg6USqi7"
+            href="/decks/Concord_MUN_Vadodara_2026_Sponsorship_Deck (1).pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary flex-1 py-4 text-center"
+            className="btn-secondary flex-1 py-4 text-center block"
           >
-            Open Delegation Form ↗
+            View sponsorship deck
+          </a>
+          <a
+            href="/decks/Concord_MUN_Vadodara_2026_Sponsorship_Deck (1).pdf"
+            download="Concord_MUN_Vadodara_2026_Sponsorship_Deck.pdf"
+            className="btn-primary flex-1 py-4 text-center block"
+          >
+            Download sponsorship deck
           </a>
         </div>
       </motion.div>
