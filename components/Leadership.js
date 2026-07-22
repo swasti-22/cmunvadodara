@@ -12,7 +12,7 @@ const leaders = [
     description: "Diplomatic Lead & Conference Director",
   },
   {
-    role: "Vice President",
+    role: "Vice President (Vadodara)",
     name: "Shivangraj Chudasama",
     image: "/vice-president.jpg",
     fallbackInitial: "SC",

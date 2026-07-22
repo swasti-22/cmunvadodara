@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     question: "What is the cancellation and refund policy?",
-    answer: "Cancellations made before 25th July 2026 are eligible for a 50% refund. No refunds will be issued for cancellations requested after 25th July 2026, as resource provisioning and allocation slots will have been locked with the venue.",
+    answer: "The delegation fees are non-refundable under all circumstances.",
   },
   {
     question: "How does the blockchain certificate verification system work?",
@@ -51,7 +51,6 @@ const faqs = [
 ];
 
 export default function Contact() {
-  const [activeFormTab, setActiveFormTab] = useState("individual");
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleAccordion = (index) => {
@@ -151,30 +150,6 @@ export default function Contact() {
 
         {/* Toggle UI & Embedded Iframe Container */}
         <div className="max-w-4xl mx-auto space-y-6 mb-16">
-          {/* Tab Toggles */}
-          <div className="flex border-b border-thin-gold/45">
-            <button
-              onClick={() => setActiveFormTab("individual")}
-              className={`flex-1 text-center py-4 text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
-                activeFormTab === "individual"
-                  ? "bg-maroon text-parchment border-t border-l border-r border-gold"
-                  : "bg-parchment-dark/30 text-almost-black hover:bg-parchment-dark/50 border-b border-thin-gold/45"
-              }`}
-            >
-              Individual Registration
-            </button>
-            <button
-              onClick={() => setActiveFormTab("team")}
-              className={`flex-1 text-center py-4 text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
-                activeFormTab === "team"
-                  ? "bg-maroon text-parchment border-t border-l border-r border-gold"
-                  : "bg-parchment-dark/30 text-almost-black hover:bg-parchment-dark/50 border-b border-thin-gold/45"
-              }`}
-            >
-              Team Delegation Registration
-            </button>
-          </div>
-
           {/* Iframe Viewport Container */}
           <div className="border border-gold bg-[#1e1b18] p-4 shadow-lg rounded-sm relative overflow-hidden">
             {/* Elegant Header Decors inside dark card */}
@@ -186,57 +161,30 @@ export default function Contact() {
               </span>
             </div>
 
-            {activeFormTab === "individual" ? (
-              <div className="space-y-4">
-                <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLSf3KIV8_uB5b6hFPAI1hpq0cTMy106TobxRMyRDSqPK4Ub9Cw/viewform?embedded=true"
-                  width="100%"
-                  height="800"
-                  frameBorder="0"
-                  marginHeight="0"
-                  marginWidth="0"
-                  className="w-full bg-white rounded-sm shadow-inner"
-                  title="Individual Delegate Registration Form"
+            <div className="space-y-4">
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSf3KIV8_uB5b6hFPAI1hpq0cTMy106TobxRMyRDSqPK4Ub9Cw/viewform?embedded=true"
+                width="100%"
+                height="800"
+                frameBorder="0"
+                marginHeight="0"
+                marginWidth="0"
+                className="w-full bg-white rounded-sm shadow-inner"
+                title="Individual Delegate Registration Form"
+              >
+                Loading form...
+              </iframe>
+              <div className="text-center pt-2">
+                <a
+                  href="https://forms.gle/RgJRsuojFsCxyk1a8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-gold hover:text-gold-light text-xs font-semibold uppercase tracking-wider underline decoration-dashed"
                 >
-                  Loading form...
-                </iframe>
-                <div className="text-center pt-2">
-                  <a
-                    href="https://forms.gle/RgJRsuojFsCxyk1a8"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block text-gold hover:text-gold-light text-xs font-semibold uppercase tracking-wider underline decoration-dashed"
-                  >
-                    Open Form in New Tab ↗
-                  </a>
-                </div>
+                  Open Form in New Tab ↗
+                </a>
               </div>
-            ) : (
-              <div className="space-y-4">
-                <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLScWbmzFQYU6QVkzwvJRkWII1dVC7pFLqeBEm5pF8bKYUA5ttg/viewform?embedded=true"
-                  width="100%"
-                  height="800"
-                  frameBorder="0"
-                  marginHeight="0"
-                  marginWidth="0"
-                  className="w-full bg-white rounded-sm shadow-inner"
-                  title="Team Delegation Registration Form"
-                >
-                  Loading form...
-                </iframe>
-                <div className="text-center pt-2">
-                  <a
-                    href="https://forms.gle/Mys3tWFEWRg6USqi7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block text-gold hover:text-gold-light text-xs font-semibold uppercase tracking-wider underline decoration-dashed"
-                  >
-                    Open Form in New Tab ↗
-                  </a>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         </div>
 

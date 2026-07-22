@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     question: "What is the cancellation and refund policy?",
-    answer: "Cancellations made before 25th July 2026 are eligible for a 50% refund. No refunds will be issued for cancellations requested after 25th July 2026, as resource provisioning and allocation slots will have been locked with the venue.",
+    answer: "The delegation fees are non-refundable under all circumstances.",
   },
   {
     question: "How does the blockchain certificate verification system work?",
