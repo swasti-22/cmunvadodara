@@ -30,45 +30,6 @@ const videoItems = [
   }
 ];
 
-const galleryItems = [
-  {
-    id: 3,
-    title: "Security Council Debates",
-    year: "Concord 2024",
-    desc: "Intense negotiations over draft resolution protocols regarding territorial sovereignty.",
-    aspect: "aspect-[3/4]",
-    type: "image",
-    src: "/gallery-sc.jpg",
-  },
-  {
-    id: 4,
-    title: "Consensus in the Lobby",
-    year: "Concord 2024",
-    desc: "Delegates drafting amendments and negotiating blocks during unmoderated caucuses.",
-    aspect: "aspect-[4/3]",
-    type: "image",
-    src: "/gallery-consensus.jpg",
-  },
-  {
-    id: 5,
-    title: "The Fern Residency Ballroom",
-    year: "Venue Showcase",
-    desc: "Elegant chandeliers and setups prepared for the Opening Ceremony.",
-    aspect: "aspect-[1/1]",
-    type: "image",
-    src: "/gallery-venue.jpg",
-  },
-  {
-    id: 6,
-    title: "Gavel & Academic Honors",
-    year: "Concord 2025",
-    desc: "Best Delegate accolades and certificates prepared for outstanding cabinet leaders.",
-    aspect: "aspect-[4/3]",
-    type: "image",
-    src: "/gallery-awards.jpg",
-  }
-];
-
 export default function Gallery() {
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -79,10 +40,10 @@ export default function Gallery() {
       <div className="absolute top-0 bottom-0 left-6 md:left-12 w-[1px] bg-thin-gold/45 z-0 hidden sm:block" />
       <div className="absolute top-0 bottom-0 right-6 md:right-12 w-[1px] bg-thin-gold/45 z-0 hidden sm:block" />
 
-      <div className="max-w-6xl mx-auto z-10 relative lg:px-12 space-y-16">
+      <div className="max-w-6xl mx-auto z-10 relative lg:px-12 space-y-12">
         
         {/* Section Header */}
-        <div className="text-center space-y-3">
+        <div className="text-center space-y-3 mb-8">
           <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-gold font-semibold">
             Visual Chronicles
           </span>
@@ -94,9 +55,6 @@ export default function Gallery() {
 
         {/* Video Highlights Row (3 Columns Side-by-Side) */}
         <div className="space-y-6">
-          <h3 className="text-lg text-maroon font-serif uppercase tracking-wider border-b border-thin-gold/30 pb-3">
-            Official Highlights & Aftermovies
-          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {videoItems.map((video) => (
               <div 
@@ -135,76 +93,6 @@ export default function Gallery() {
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Photo Archive Section */}
-        <div className="space-y-6 pt-8">
-          <h3 className="text-lg text-maroon font-serif uppercase tracking-wider border-b border-thin-gold/30 pb-3">
-            Captured Moments
-          </h3>
-          <div className="columns-1 md:columns-2 lg:columns-2 gap-6 space-y-6">
-            {galleryItems.map((item) => (
-              <motion.div
-                key={item.id}
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.3 }}
-                className="break-inside-avoid border border-thin-gold bg-parchment-dark/20 p-4 flex flex-col justify-between group cursor-pointer hover:border-gold transition-colors duration-300"
-                onClick={() => setSelectedItem(item)}
-              >
-                <div className={`${item.aspect} w-full bg-maroon/5 border border-thin-gold/40 relative overflow-hidden flex items-center justify-center`}>
-                  <div className="w-10 h-10 border border-gold/30 rounded-sm rotate-45 flex items-center justify-center bg-parchment-dark z-0">
-                    <span className="text-gold font-serif text-[10px] -rotate-45">✦</span>
-                  </div>
-                  <div className="absolute inset-2 border border-dashed border-gold/15 pointer-events-none" />
-                  
-                  {/* Image Display */}
-                  <img
-                    src={item.src}
-                    alt={item.title}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      if (e.target.nextSibling) {
-                        e.target.nextSibling.style.display = 'flex';
-                      }
-                    }}
-                    className="absolute inset-0 w-full h-full object-cover z-10"
-                  />
-                  
-                  <div 
-                    style={{ display: 'none' }}
-                    className="absolute inset-0 flex flex-col items-center justify-center bg-maroon/5 text-gold-dark font-serif z-10"
-                  >
-                    <span className="text-2xl font-extrabold tracking-widest">C</span>
-                    <span className="text-[8px] uppercase tracking-widest mt-1 opacity-60">Archive Photo</span>
-                  </div>
-
-                  {/* Hover mask */}
-                  <div className="absolute inset-0 bg-maroon-dark/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center space-y-2 z-20">
-                    <span className="text-gold font-serif text-sm uppercase tracking-wider">
-                      {item.title}
-                    </span>
-                    <span className="text-parchment/70 text-[9px] uppercase tracking-widest flex items-center gap-1 justify-center">
-                      {item.year}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="pt-4 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-serif uppercase tracking-wider text-maroon font-bold">
-                      {item.title}
-                    </h3>
-                    <span className="text-[10px] text-gold uppercase tracking-widest font-semibold">
-                      Photo
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-almost-black/70 font-light leading-relaxed font-sans line-clamp-2">
-                    {item.desc}
-                  </p>
-                </div>
-              </motion.div>
             ))}
           </div>
         </div>
@@ -252,35 +140,15 @@ export default function Gallery() {
                   </svg>
                 </button>
 
-                {/* Main Showcase Box */}
-                {selectedItem.type === "video" ? (
-                  <div className="aspect-[16/9] w-full bg-almost-black border border-thin-gold/45 relative flex items-center justify-center overflow-hidden rounded-sm">
-                    <video
-                      src={selectedItem.src}
-                      controls
-                      autoPlay
-                      className="w-full h-full object-contain z-10"
-                    />
-                  </div>
-                ) : (
-                  <div className="aspect-[16/10] w-full bg-maroon/5 border border-thin-gold/45 relative flex items-center justify-center overflow-hidden rounded-sm">
-                    <img
-                      src={selectedItem.src}
-                      alt={selectedItem.title}
-                      className="w-full h-full object-cover z-10"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        if (e.target.nextSibling) {
-                          e.target.nextSibling.style.display = 'flex';
-                        }
-                      }}
-                    />
-                    <div className="absolute inset-3 border border-dashed border-gold/15 pointer-events-none" />
-                    <div className="w-16 h-16 border border-gold/30 rounded-sm rotate-45 flex items-center justify-center bg-parchment-dark">
-                      <span className="text-gold font-serif text-lg -rotate-45 font-semibold">C</span>
-                    </div>
-                  </div>
-                )}
+                {/* Cinema Showcase Box */}
+                <div className="aspect-[16/9] w-full bg-almost-black border border-thin-gold/45 relative flex items-center justify-center overflow-hidden rounded-sm">
+                  <video
+                    src={selectedItem.src}
+                    controls
+                    autoPlay
+                    className="w-full h-full object-contain z-10"
+                  />
+                </div>
 
                 {/* Caption Details */}
                 <div className="space-y-3">
