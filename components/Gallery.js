@@ -3,25 +3,34 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const videoItems = [
+  {
+    id: "v1",
+    title: "Concord Vadodara 2025 Aftermovie",
+    year: "Concord 2025",
+    desc: "Relive the diplomatic deliberations, crisis updates, and closing celebrations of our flagship Vadodara edition.",
+    src: "/videos/CONCORD MUN VADODARA 2025 AFTERMOVIE.mp4",
+    type: "video"
+  },
+  {
+    id: "v2",
+    title: "Concord x LPSA MUN 2025 Day 1",
+    year: "Concord 2025",
+    desc: "Inaugural opening ceremonies and the first intense sessions of parliamentary debate.",
+    src: "/videos/CONCORD X LPSA MUN 2025 DAY-1.mp4",
+    type: "video"
+  },
+  {
+    id: "v3",
+    title: "Concord x LPSA MUN 2025 Day 2",
+    year: "Concord 2025",
+    desc: "Final resolution drafting, bloc negotiations, and the closing honors ceremony.",
+    src: "/videos/CONCORD X LPSA MUN 2025 DAY-2.mp4",
+    type: "video"
+  }
+];
+
 const galleryItems = [
-  {
-    id: 1,
-    title: "Opening Ceremony Highlights",
-    year: "Concord 2025",
-    desc: "Key diplomatic addresses and highlights from the inaugural session launch.",
-    aspect: "aspect-[16/9]",
-    type: "video",
-    src: "/opening-highlights.mp4",
-  },
-  {
-    id: 2,
-    title: "Crisis Cabinet Deliberations",
-    year: "Concord 2025",
-    desc: "Cabinet delegates responding to the midnight crisis notification briefing.",
-    aspect: "aspect-[16/9]",
-    type: "video",
-    src: "/crisis-deliberations.mp4",
-  },
   {
     id: 3,
     title: "Security Council Debates",
@@ -83,79 +92,131 @@ export default function Gallery() {
           <div className="w-16 h-[1px] bg-gold mx-auto mt-4" />
         </div>
 
-        {/* Gallery Grid (Art-Gallery Style) */}
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-          {galleryItems.map((item) => (
-            <motion.div
-              key={item.id}
-              whileHover={{ scale: 1.01 }}
-              transition={{ duration: 0.3 }}
-              className={`break-inside-avoid border border-thin-gold bg-parchment-dark/20 p-4 flex flex-col justify-between group cursor-pointer hover:border-gold transition-colors duration-300`}
-              onClick={() => setSelectedItem(item)}
-            >
-              {/* Graphic/Video Showcase Box */}
-              <div className={`${item.aspect} w-full bg-maroon/5 border border-thin-gold/40 relative overflow-hidden flex items-center justify-center`}>
-                
-                {/* Fallback pattern */}
-                <div className="w-10 h-10 border border-gold/30 rounded-sm rotate-45 flex items-center justify-center bg-parchment-dark z-0">
-                  <span className="text-gold font-serif text-[10px] -rotate-45">✦</span>
+        {/* Video Highlights Row (3 Columns Side-by-Side) */}
+        <div className="space-y-6">
+          <h3 className="text-lg text-maroon font-serif uppercase tracking-wider border-b border-thin-gold/30 pb-3">
+            Official Highlights & Aftermovies
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {videoItems.map((video) => (
+              <div 
+                key={video.id}
+                className="border border-thin-gold bg-parchment-dark/15 p-4 flex flex-col justify-between group rounded-sm shadow-sm hover:border-gold transition-colors duration-300"
+              >
+                <div className="aspect-[16/9] w-full bg-almost-black border border-thin-gold/40 relative overflow-hidden flex items-center justify-center rounded-sm">
+                  <video
+                    src={video.src}
+                    controls
+                    preload="metadata"
+                    className="w-full h-full object-cover z-10"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-maroon/5 pointer-events-none z-0" />
                 </div>
-                <div className="absolute inset-2 border border-dashed border-gold/15 pointer-events-none" />
                 
-                {/* Play button indicator for video type */}
-                {item.type === "video" && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-maroon/5 group-hover:bg-maroon/10 transition-colors z-10">
-                    <div className="w-12 h-12 border border-gold flex items-center justify-center rounded-full bg-parchment shadow-md group-hover:scale-110 transition-transform duration-300">
-                      <svg className="w-5 h-5 text-maroon fill-current ml-0.5" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
+                <div className="pt-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-xs font-serif uppercase tracking-wider text-maroon font-bold leading-tight max-w-[80%]">
+                      {video.title}
+                    </h4>
+                    <span className="text-[9px] text-gold uppercase tracking-widest font-bold">
+                      {video.year}
+                    </span>
                   </div>
-                )}
-
-                {/* Hover mask */}
-                <div className="absolute inset-0 bg-maroon-dark/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center space-y-2 z-20">
-                  <span className="text-gold font-serif text-sm uppercase tracking-wider">
-                    {item.title}
-                  </span>
-                  <span className="text-parchment/70 text-[9px] uppercase tracking-widest flex items-center gap-1 justify-center">
-                    {item.type === "video" && (
-                      <svg className="w-3 h-3 text-gold fill-current" viewBox="0 0 24 24">
-                        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" />
-                      </svg>
-                    )}
-                    {item.year}
-                  </span>
+                  <p className="text-[11px] text-almost-black/70 font-light leading-relaxed font-sans line-clamp-2">
+                    {video.desc}
+                  </p>
+                  
+                  {/* Cinema Maximization Button */}
+                  <button
+                    onClick={() => setSelectedItem(video)}
+                    className="text-[9px] uppercase tracking-widest text-gold hover:text-gold-dark font-bold flex items-center gap-1 mt-1 cursor-pointer border-none bg-transparent"
+                  >
+                    Maximize Video ↗
+                  </button>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
 
-              {/* Caption details below */}
-              <div className="pt-4 space-y-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-serif uppercase tracking-wider text-maroon font-bold">
-                    {item.title}
-                  </h3>
-                  <span className="text-[10px] text-gold uppercase tracking-widest font-semibold flex items-center gap-1">
-                    {item.type === "video" && "Video"}
-                    {item.type === "image" && "Photo"}
-                  </span>
+        {/* Photo Archive Section */}
+        <div className="space-y-6 pt-8">
+          <h3 className="text-lg text-maroon font-serif uppercase tracking-wider border-b border-thin-gold/30 pb-3">
+            Captured Moments
+          </h3>
+          <div className="columns-1 md:columns-2 lg:columns-2 gap-6 space-y-6">
+            {galleryItems.map((item) => (
+              <motion.div
+                key={item.id}
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.3 }}
+                className="break-inside-avoid border border-thin-gold bg-parchment-dark/20 p-4 flex flex-col justify-between group cursor-pointer hover:border-gold transition-colors duration-300"
+                onClick={() => setSelectedItem(item)}
+              >
+                <div className={`${item.aspect} w-full bg-maroon/5 border border-thin-gold/40 relative overflow-hidden flex items-center justify-center`}>
+                  <div className="w-10 h-10 border border-gold/30 rounded-sm rotate-45 flex items-center justify-center bg-parchment-dark z-0">
+                    <span className="text-gold font-serif text-[10px] -rotate-45">✦</span>
+                  </div>
+                  <div className="absolute inset-2 border border-dashed border-gold/15 pointer-events-none" />
+                  
+                  {/* Image Display */}
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      if (e.target.nextSibling) {
+                        e.target.nextSibling.style.display = 'flex';
+                      }
+                    }}
+                    className="absolute inset-0 w-full h-full object-cover z-10"
+                  />
+                  
+                  <div 
+                    style={{ display: 'none' }}
+                    className="absolute inset-0 flex flex-col items-center justify-center bg-maroon/5 text-gold-dark font-serif z-10"
+                  >
+                    <span className="text-2xl font-extrabold tracking-widest">C</span>
+                    <span className="text-[8px] uppercase tracking-widest mt-1 opacity-60">Archive Photo</span>
+                  </div>
+
+                  {/* Hover mask */}
+                  <div className="absolute inset-0 bg-maroon-dark/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center space-y-2 z-20">
+                    <span className="text-gold font-serif text-sm uppercase tracking-wider">
+                      {item.title}
+                    </span>
+                    <span className="text-parchment/70 text-[9px] uppercase tracking-widest flex items-center gap-1 justify-center">
+                      {item.year}
+                    </span>
+                  </div>
                 </div>
-                <p className="text-[11px] text-almost-black/70 font-light leading-relaxed font-sans line-clamp-2">
-                  {item.desc}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+
+                <div className="pt-4 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-serif uppercase tracking-wider text-maroon font-bold">
+                      {item.title}
+                    </h3>
+                    <span className="text-[10px] text-gold uppercase tracking-widest font-semibold">
+                      Photo
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-almost-black/70 font-light leading-relaxed font-sans line-clamp-2">
+                    {item.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal (Cinema Scale) */}
       <AnimatePresence>
         {selectedItem && (
           <>
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.7 }}
+              animate={{ opacity: 0.85 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedItem(null)}
               className="fixed inset-0 z-50 bg-almost-black"
@@ -165,13 +226,14 @@ export default function Gallery() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none"
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 pointer-events-none"
             >
-              <div className="bg-parchment border border-gold max-w-xl w-full p-8 md:p-12 space-y-6 pointer-events-auto relative shadow-2xl">
+              <div className="bg-parchment border border-gold max-w-4xl w-full p-6 md:p-8 space-y-6 pointer-events-auto relative shadow-2xl rounded-sm">
+                
                 {/* Close Button */}
                 <button
                   onClick={() => setSelectedItem(null)}
-                  className="absolute top-4 right-4 p-2 text-maroon hover:text-gold transition-colors focus:outline-none"
+                  className="absolute top-4 right-4 p-2 text-maroon hover:text-gold transition-colors focus:outline-none z-30"
                   aria-label="Close"
                 >
                   <svg
@@ -184,7 +246,7 @@ export default function Gallery() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="1.5"
+                      strokeWidth="1.8"
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
@@ -192,40 +254,26 @@ export default function Gallery() {
 
                 {/* Main Showcase Box */}
                 {selectedItem.type === "video" ? (
-                  <div className="aspect-[16/9] w-full bg-almost-black border border-thin-gold/45 relative flex items-center justify-center overflow-hidden">
+                  <div className="aspect-[16/9] w-full bg-almost-black border border-thin-gold/45 relative flex items-center justify-center overflow-hidden rounded-sm">
                     <video
                       src={selectedItem.src}
                       controls
                       autoPlay
                       className="w-full h-full object-contain z-10"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        if (e.target.nextSibling) {
-                          e.target.nextSibling.style.display = 'flex';
-                        }
-                      }}
                     />
-                    <div 
-                      className="absolute inset-0 flex flex-col items-center justify-center bg-maroon/5 text-gold-dark font-serif"
-                    >
-                      <span className="text-gold font-serif text-lg font-bold">Video Clip Pending</span>
-                      <span className="text-[10px] text-almost-black/50 uppercase tracking-widest mt-2">
-                        Upload {selectedItem.src.replace('/', '')} to public/
-                      </span>
-                    </div>
                   </div>
                 ) : (
-                  <div className="aspect-[16/10] w-full bg-maroon/5 border border-thin-gold/45 relative flex items-center justify-center overflow-hidden">
+                  <div className="aspect-[16/10] w-full bg-maroon/5 border border-thin-gold/45 relative flex items-center justify-center overflow-hidden rounded-sm">
                     <img
                       src={selectedItem.src}
                       alt={selectedItem.title}
+                      className="w-full h-full object-cover z-10"
                       onError={(e) => {
                         e.target.style.display = 'none';
                         if (e.target.nextSibling) {
                           e.target.nextSibling.style.display = 'flex';
                         }
                       }}
-                      className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-3 border border-dashed border-gold/15 pointer-events-none" />
                     <div className="w-16 h-16 border border-gold/30 rounded-sm rotate-45 flex items-center justify-center bg-parchment-dark">
