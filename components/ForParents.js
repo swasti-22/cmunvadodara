@@ -5,10 +5,6 @@ import { motion } from "framer-motion";
 export default function ForParents({ isOpen, onClose }) {
   if (!isOpen) return null;
 
-  const handleDownload = () => {
-    alert("Downloading Parent Information Guide (PDF)... (Demo File: `/parent_guide_concord2026.pdf`)");
-  };
-
   return (
     <>
       {/* Backdrop */}
@@ -107,17 +103,20 @@ export default function ForParents({ isOpen, onClose }) {
 
         {/* Footer Actions */}
         <div className="pt-8 border-t border-thin-gold/50 flex gap-4 mt-8">
-          <button
-            onClick={handleDownload}
-            className="btn-secondary flex-1 py-4"
-          >
-            Download Parent PDF 📥
-          </button>
           <a
-            href="mailto:safety@concordmun.org?subject=Concord%20MUN%20Parent%20Inquiry"
-            className="btn-primary flex-1 py-4 text-center"
+            href="/decks/Concord_MUN_Vadodara_2026_Brochure.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary flex-1 py-4 text-center block"
           >
-            Email Safety Desk
+            View official brochure
+          </a>
+          <a
+            href="/decks/Concord_MUN_Vadodara_2026_Brochure.pdf"
+            download="Concord_MUN_Vadodara_2026_Brochure.pdf"
+            className="btn-primary flex-1 py-4 text-center block"
+          >
+            Download official brochure
           </a>
         </div>
       </motion.div>
