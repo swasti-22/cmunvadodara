@@ -35,9 +35,13 @@ export default function GlobalLoader() {
                 opacity: 1, 
                 transition: { duration: 1.2, ease: "easeOut" } 
               }}
-              className="w-16 h-16 mb-8 border border-gold flex items-center justify-center rounded-sm bg-maroon/5 rotate-45"
+              className="w-16 h-16 mb-8 relative overflow-hidden rounded-full border border-gold shadow-md flex items-center justify-center bg-parchment"
             >
-              <span className="text-gold font-serif text-2xl -rotate-45 font-medium tracking-widest">C</span>
+              <img
+                src="/emblem.png"
+                alt="Concord Logo"
+                className="w-full h-full object-cover"
+              />
             </motion.div>
 
             {/* Typography Entrance */}

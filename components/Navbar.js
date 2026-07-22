@@ -60,8 +60,12 @@ export default function Navbar({ onOpenParents, onOpenSchools }) {
           href="#home"
           className="flex items-center gap-3 group"
         >
-          <div className="w-8 h-8 border border-gold flex items-center justify-center rounded-sm bg-maroon/5 rotate-45 transition-colors duration-300 group-hover:bg-maroon/10">
-            <span className="text-gold font-serif text-sm -rotate-45 font-semibold">C</span>
+          <div className="w-8 h-8 relative overflow-hidden rounded-full border border-gold shadow-sm flex items-center justify-center bg-parchment">
+            <img
+              src="/emblem.png"
+              alt="Concord Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="flex flex-col">
             <span className="font-serif text-sm md:text-base font-bold tracking-[0.15em] uppercase text-maroon">

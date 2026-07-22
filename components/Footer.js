@@ -21,8 +21,12 @@ export default function Footer({ onOpenParents, onOpenSchools }) {
         {/* Brand Section */}
         <div className="flex flex-col space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 border border-gold flex items-center justify-center rounded-sm bg-maroon/5 rotate-45">
-              <span className="text-gold font-serif text-base -rotate-45 font-semibold">C</span>
+            <div className="w-9 h-9 relative overflow-hidden rounded-full border border-gold shadow-sm flex items-center justify-center bg-parchment">
+              <img
+                src="/emblem.png"
+                alt="Concord Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-maroon font-serif text-base font-bold tracking-[0.15em] uppercase">
