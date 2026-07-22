@@ -40,15 +40,6 @@ const features = [
     ),
   },
   {
-    title: "Mentorship & Training",
-    desc: "Gain access to pre-conference guide webinars, rule orientation seminars, and personalized feedback from the executive council.",
-    icon: (
-      <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A5.905 5.905 0 018 3.906.75.75 0 018 3h8a.75.75 0 01.07.006 5.907 5.907 0 015.507 5.428c-.908.26-1.833.532-2.77.813m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-5.25 2.882V12" />
-      </svg>
-    ),
-  },
-  {
     title: "Accredited Presidium",
     desc: "Chaired by seasoned executives with 20+ combined years of MUN leadership, guaranteeing rigorous academic debate and fair moderation.",
     icon: (
@@ -63,15 +54,6 @@ const features = [
     icon: (
       <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 9l10.5-3m0 0L21 9m-1.5-3v10.5m-3-6L7.5 12m0 0V18m0-6H3.75m0 0v6" />
-      </svg>
-    ),
-  },
-  {
-    title: "Blockchain Verification",
-    desc: "Concord certificates contain encrypted secure registry codes, letting schools, parents, and universities verify achievements instantly.",
-    icon: (
-      <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>
     ),
   },
