@@ -11,7 +11,7 @@ export async function POST(req) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       console.error("Missing ANTHROPIC_API_KEY env var");
-      return NextResponse.json({ error: "Configuration error" }, { status: 500 });
+      return NextResponse.json({ error: "Configuration error: ANTHROPIC_API_KEY environment variable is missing on the server." }, { status: 500 });
     }
 
     const systemPrompt = `You are the official AI Assistant for Concord Model United Nations (Concord MUN) Vadodara 2026.
@@ -64,7 +64,7 @@ Guidelines:
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Anthropic API error response:", errorText);
-      return NextResponse.json({ error: "Failed to generate reply from AI partner" }, { status: 500 });
+      return NextResponse.json({ error: `Anthropic API error: ${errorText}` }, { status: 500 });
     }
 
     const data = await response.json();
@@ -73,6 +73,6 @@ Guidelines:
     return NextResponse.json({ reply: replyText });
   } catch (error) {
     console.error("Server API route error:", error);
-    return NextResponse.json({ error: "An internal server error occurred" }, { status: 500 });
+    return NextResponse.json({ error: `Internal server error: ${error.message}` }, { status: 500 });
   }
 }

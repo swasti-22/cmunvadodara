@@ -42,7 +42,8 @@ export default function ChatWidget() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to connect to assistant");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to connect to assistant");
       }
 
       const data = await response.json();
@@ -53,7 +54,7 @@ export default function ChatWidget() {
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, I am having trouble connecting to the Secretariat server. Please try again or contact us at concordmunvadodara08@gmail.com.",
+          content: `Sorry, I am having trouble connecting to the Secretariat server (${error.message}). Please try again or contact us at concordmunvadodara08@gmail.com.`,
         },
       ]);
     } finally {
