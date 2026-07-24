@@ -35,6 +35,16 @@ Guidelines:
 2. If a user asks a question you cannot answer with the facts listed above, politely instruct them to contact the Secretariat via email or use the registration form.
 3. NEVER invent or hallucinate any dates, fees, policies, or details that are not explicitly provided in this prompt.`;
 
+    // Anthropic API requires the messages array to start with a 'user' role.
+    // If the conversation starts with our static assistant welcome message, we slice it off.
+    let apiMessages = messages.map((m) => ({
+      role: m.role,
+      content: m.content,
+    }));
+    if (apiMessages.length > 0 && apiMessages[0].role === "assistant") {
+      apiMessages = apiMessages.slice(1);
+    }
+
     // Call Anthropic API
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -44,13 +54,10 @@ Guidelines:
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",
+        model: "claude-3-5-sonnet-latest",
         max_tokens: 500,
         system: systemPrompt,
-        messages: messages.map((m) => ({
-          role: m.role,
-          content: m.content,
-        })),
+        messages: apiMessages,
       }),
     });
 
